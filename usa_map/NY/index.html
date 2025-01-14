@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple HTML Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+        #svgContainer {
+            margin: 20px auto;
+            display: inline-block;
+            width: 100%;
+            max-width: auto;
+        }
+        .map-container {
+            display: flex;
+            gap: 20px;
+        }
+        #usaMap {
+            width: 60%; /* 增加宽度占比 */
+            height: 80vh; /* 使用视口高度单位 */
+            min-height: 500px; /* 设置最小高度 */
+            border: 1px solid #ddd;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: linear-gradient(90deg, #45a049, #32a89f);
+            transform: scale(1.05);
+        }
+
+        #stateInfo {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            display: none;
+            width: 200px;
+            height: fit-content;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to New York</h1>
+    <p>This is the New York map:</p>
+
+    <div class="button-container">
+        <a href="https://danielchen3.github.io/usa_map" target="_blank">
+            <button onmouseover="changeColor(this)" onmouseout="resetColor(this)">Go Back Map</button>
+        </a>
+    </div>
+
+    <!-- 嵌入外部 SVG 文件 -->
+    <div class="map-container">
+        <object id="usaMap" data="Map_of_New_York_County_Outlines.svg" type="image/svg+xml" style="width: 60%; max-width: auto; height: auto; border: 1px solid #ddd;"></object>
+        <div id="stateInfo"></div>
+    </div>
+
+    
+    <script>
+        // 定义特定的州 ID 列表
+        // const targetStates = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]; // 替换为你需要的州 ID
+        const targetRegions = ["Bronx", "Suffolk", "Westchester","New_York", ]; // 替换为你需要的州 ID
+        // 添加鼠标交互
+        const svgObject = document.getElementById('usaMap');
+        svgObject.addEventListener('load', () => {
+            const svgDoc = svgObject.contentDocument; // 获取嵌入的 SVG 文档
+            const paths = svgDoc.querySelectorAll('path'); // 假设地图中的州使用 <path> 标签
+            const regions = svgDoc.querySelectorAll('polygon'); // 假设地图中的州使用 <g> 标签
+            
+
+            // 遍历每个州，并添加交互
+            regions.forEach(region => {
+                if (region.id && !region.id.includes("path")) { // 只处理特定 ID 的州
+                    region.addEventListener('mouseover', () => {
+                        region.style.fill = '#FF0000'; // 鼠标悬停时高亮
+
+                        // 显示州名
+                        const stateInfo = document.getElementById('stateInfo');
+                        stateInfo.style.display = 'block';
+                        const processedId = region.id.substring(region.id.lastIndexOf('_') + 1);
+                        stateInfo.innerHTML = `
+                            <h3>${processedId}</h3>
+                            <p>这里是关于 ${processedId} 的详细信息</p>
+                        `;
+                    });
+                    region.addEventListener('mouseout', () => {
+                        region.style.fill = ''; // 恢复原样
+                    });
+                    region.addEventListener('click', () => {
+                        const targetUrl = `https://danielchen3.github.io/usa_map/${region.id}`; // 替换为你需要跳转的网址
+                        window.location.href = targetUrl; // 跳转到指定网页
+                    });
+                }
+            });
+
+            paths.forEach(path => {
+                if (path.id && !path.id.includes("path") && targetRegions.includes(path.id)) { // 只处理特定 ID 的州
+                    path.addEventListener('mouseover', () => {
+                        path.style.fill = '#FF0000'; // 鼠标悬停时高亮
+
+                        // 显示州名
+                        const stateInfo = document.getElementById('stateInfo');
+                        stateInfo.style.display = 'block';
+                        const processedId = path.id;
+                        stateInfo.innerHTML = `
+                            <h3>${processedId}</h3>
+                            <p>这里是关于 ${processedId} 的详细信息</p>
+                        `;
+                    });
+                    path.addEventListener('mouseout', () => {
+                        path.style.fill = ''; // 恢复原样
+                    });
+                    path.addEventListener('click', () => {
+                        const targetUrl = `https://danielchen3.github.io/usa_map/${path.id}`; // 替换为你需要跳转的网址
+                        window.location.href = targetUrl; // 跳转到指定网页
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
