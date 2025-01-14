@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple HTML Page</title>
+    <title>Interactive HTML Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 50px;
+            background-color: #f9f9f9;
         }
         h1 {
             color: #4CAF50;
@@ -17,10 +18,56 @@
             font-size: 18px;
             color: #555;
         }
+        .button-container {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: linear-gradient(90deg, #45a049, #32a89f);
+            transform: scale(1.05);
+        }
+        a {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Page</h1>
-    <p>This is a simple HTML example. Feel free to modify and expand it!</p>
+    <h1>Welcome to My Github</h1>
+    <p>This is a guide</p>
+    <div class="button-container">
+        <!-- 按钮1：弹出提示框 -->
+        <button onmouseover="changeColor(this)" onmouseout="resetColor(this)" onclick="showMessage()">Show Message</button>
+
+        <!-- 按钮2：跳转到另一个网页 -->
+        <a href="https://danielchen3.github.io/usa_map" target="_blank">
+            <button onmouseover="changeColor(this)" onmouseout="resetColor(this)">Go to Map</button>
+        </a>
+    </div>
+
+    <script>
+        function showMessage() {
+            alert('Hello! This is a Heat Alert Warning!');
+        }
+
+        // 改变按钮背景色
+        function changeColor(button) {
+            button.style.background = 'linear-gradient(90deg, #45a049, #32a89f)';
+        }
+
+        // 恢复按钮背景色
+        function resetColor(button) {
+            button.style.background = '#4CAF50';
+        }
+    </script>
 </body>
 </html>
