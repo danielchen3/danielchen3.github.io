@@ -39,33 +39,30 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to My USA Map Blog</h1>
-    <p>This is the USA map:</p>
+    <h1>Welcome to USA ALERT</h1>
+    <p>Let's alert America!</p>
 
-    <!-- 嵌入外部 SVG 文件 -->
     <div class="map-container">
         <object id="usaMap" data="Map_of_USA_with_state_names_2.svg" type="image/svg+xml" style="width: 60%; max-width: auto; height: auto; border: 1px solid #ddd;"></object>
         <div id="stateInfo"></div>
     </div>
 
     <script>
-        // 定义特定的州 ID 列表
         const targetStates = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]; // 替换为你需要的州 ID
 
-        // 添加鼠标交互
         const svgObject = document.getElementById('usaMap');
         svgObject.addEventListener('load', () => {
-            const svgDoc = svgObject.contentDocument; // 获取嵌入的 SVG 文档
-            const states = svgDoc.querySelectorAll('path'); // 假设地图中的州使用 <path> 标签
+            const svgDoc = svgObject.contentDocument; 
+            const states = svgDoc.querySelectorAll('path'); 
             
 
             // 遍历每个州，并添加交互
             states.forEach(state => {
-                if (targetStates.includes(state.id)) { // 只处理特定 ID 的州
+                if (targetStates.includes(state.id)) { 
                     state.addEventListener('mouseover', () => {
-                        state.style.fill = '#FF0000'; // 鼠标悬停时高亮
+                        state.style.fill = '#FF0000'; 
 
-                        // 显示州名
+                        // state information and extra interaction
                         const stateInfo = document.getElementById('stateInfo');
                         stateInfo.style.display = 'block';
                         stateInfo.innerHTML = `
@@ -74,11 +71,11 @@
                         `;
                     });
                     state.addEventListener('mouseout', () => {
-                        state.style.fill = '#FFFFFF'; // 恢复原样
+                        state.style.fill = '#FFFFFF'; 
                     });
                     state.addEventListener('click', () => {
-                        const targetUrl = `https://danielchen3.github.io/usa_map/${state.id}`; // 替换为你需要跳转的网址
-                        window.location.href = targetUrl; // 跳转到指定网页
+                        const targetUrl = `https://danielchen3.github.io/usa_map/${state.id}`; 
+                        window.location.href = targetUrl; 
                     });
                 }
             });

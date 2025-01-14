@@ -45,10 +45,8 @@
     <h1>Welcome to My Github</h1>
     <p>This is a guide</p>
     <div class="button-container">
-        <!-- 按钮1：弹出提示框 -->
         <button onmouseover="changeColor(this)" onmouseout="resetColor(this)" onclick="showMessage()">Show Message</button>
 
-        <!-- 按钮2：跳转到另一个网页 -->
         <a href="https://danielchen3.github.io/usa_map" target="_blank">
             <button onmouseover="changeColor(this)" onmouseout="resetColor(this)">Go to Map</button>
         </a>
@@ -59,12 +57,10 @@
             alert('Hello! This is a Heat Alert Warning!');
         }
 
-        // 改变按钮背景色
         function changeColor(button) {
             button.style.background = 'linear-gradient(90deg, #45a049, #32a89f)';
         }
 
-        // 恢复按钮背景色
         function resetColor(button) {
             button.style.background = '#4CAF50';
         }
