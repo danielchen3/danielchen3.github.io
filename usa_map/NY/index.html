@@ -4,65 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New York</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        h1 {
-            color: #4CAF50;
-        }
-        p {
-            font-size: 18px;
-            color: #555;
-        }
-        #svgContainer {
-            margin: 20px auto;
-            display: inline-block;
-            width: 100%;
-            max-width: auto;
-        }
-        .map-container {
-            display: flex;
-            gap: 20px;
-        }
-        #usaMap {
-            width: 60%; /* 增加宽度占比 */
-            height: 80vh; /* 使用视口高度单位 */
-            min-height: 500px; /* 设置最小高度 */
-            border: 1px solid #ddd;
-        }
-
-        .button-container {
-            margin-top: 20px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        button:hover {
-            background-color: linear-gradient(90deg, #45a049, #32a89f);
-            transform: scale(1.05);
-        }
-
-        #stateInfo {
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #fff;
-            display: none;
-            width: 200px;
-            height: fit-content;
-        }
-    </style>
+    <link rel="stylesheet" href="./../styles.css">
 </head>
 <body>
     <h1>Welcome to New York</h1>
@@ -70,72 +12,16 @@
 
     <div class="button-container">
         <a href="https://danielchen3.github.io/usa_map" target="_blank">
-            <button onmouseover="changeColor(this)" onmouseout="resetColor(this)">Go Back Map</button>
+            <button >Go Back Map</button>
         </a>
     </div>
 
     <div class="map-container">
-        <object id="usaMap" data="Map_of_New_York_County_Outlines.svg" type="image/svg+xml" style="width: 60%; max-width: auto; height: auto; border: 1px solid #ddd;"></object>
+        <object id="usaMap" data="usa_ny.svg" type="image/svg+xml" style="width: 60%; max-width: auto; height: auto; border: 1px solid #ddd;"></object>
         <div id="stateInfo"></div>
     </div>
 
     
-    <script>
-        const targetRegions = ["Bronx", "Suffolk", "Westchester","New_York", ];
-        const svgObject = document.getElementById('usaMap');
-        svgObject.addEventListener('load', () => {
-            const svgDoc = svgObject.contentDocument; 
-            const paths = svgDoc.querySelectorAll('path'); 
-            const regions = svgDoc.querySelectorAll('polygon'); 
-            
-            regions.forEach(region => {
-                if (region.id && !region.id.includes("path")) {
-                    region.addEventListener('mouseover', () => {
-                        region.style.fill = '#FF0000'; 
-
-                    
-                        const stateInfo = document.getElementById('stateInfo');
-                        stateInfo.style.display = 'block';
-                        const processedId = region.id.substring(region.id.lastIndexOf('_') + 1);
-                        stateInfo.innerHTML = `
-                            <h3>${processedId}</h3>
-                            <p>这里是关于 ${processedId} 的详细信息</p>
-                        `;
-                    });
-                    region.addEventListener('mouseout', () => {
-                        region.style.fill = ''; 
-                    });
-                    region.addEventListener('click', () => {
-                        const targetUrl = `https://danielchen3.github.io/usa_map/${region.id}`;
-                        window.location.href = targetUrl;
-                    });
-                }
-            });
-
-            paths.forEach(path => {
-                if (path.id && !path.id.includes("path") && targetRegions.includes(path.id)) { 
-                    path.addEventListener('mouseover', () => {
-                        path.style.fill = '#FF0000';
-
-                    
-                        const stateInfo = document.getElementById('stateInfo');
-                        stateInfo.style.display = 'block';
-                        const processedId = path.id;
-                        stateInfo.innerHTML = `
-                            <h3>${processedId}</h3>
-                            <p>这里是关于 ${processedId} 的详细信息</p>
-                        `;
-                    });
-                    path.addEventListener('mouseout', () => {
-                        path.style.fill = ''; 
-                    });
-                    path.addEventListener('click', () => {
-                        const targetUrl = `https://danielchen3.github.io/usa_map/${path.id}`; 
-                        window.location.href = targetUrl; 
-                    });
-                }
-            });
-        });
-    </script>
+    <script type="module" src="usa_ny.js"> </script>
 </body>
 </html>

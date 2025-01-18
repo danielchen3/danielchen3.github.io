@@ -4,91 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>California</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        h1 {
-            color: #4CAF50;
-        }
-        p {
-            font-size: 18px;
-            color: #555;
-        }
-        #svgContainer {
-            margin: 20px auto;
-            display: inline-block;
-            width: 100%;
-            max-width: auto;
-        }
-        .map-container {
-            display: flex;
-            gap: 20px;
-        }
-        #usaMap {
-            width: 60%; /* 增加宽度占比 */
-            height: 80vh; /* 使用视口高度单位 */
-            min-height: 500px; /* 设置最小高度 */
-            border: 1px solid #ddd;
-        }
-
-        #stateInfo {
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #fff;
-            display: none;
-            width: 200px;
-            height: fit-content;
-        }
-    </style>
+    <link rel="stylesheet" href="./../styles.css">
 </head>
 <body>
     <h1>Welcome to California</h1>
     <p>This is the California map:</p>
 
-    <!-- 嵌入外部 SVG 文件 -->
+    <div class="button-container">
+        <a href="https://danielchen3.github.io/usa_map" target="_blank">
+            <button>Go Back Map</button>
+        </a>
+    </div>
+    
     <div class="map-container">
-        <object id="usaMap" data="California_county_map_(labeled).svg" type="image/svg+xml" style="width: 60%; max-width: auto; height: auto; border: 1px solid #ddd;"></object>
+        <object id="usaMap" data="usa_ca.svg" type="image/svg+xml" style="width: 60%; max-width: auto; height: auto; border: 1px solid #ddd;"></object>
         <div id="stateInfo"></div>
     </div>
     
-    <script>
-        const svgObject = document.getElementById('usaMap');
-        svgObject.addEventListener('load', () => {
-            const svgDoc = svgObject.contentDocument; 
-            const regions_1 = svgDoc.querySelectorAll('path'); 
-            const regions_2 = svgDoc.querySelectorAll('polyline');
-            
-            regions = [regions_1, regions_2];
-            
-            regions.forEach(region_ => {
-                region_.forEach(region => {
-                    if (region.id && !region.id.includes("path")) { 
-                        region.addEventListener('mouseover', () => {
-                            region.style.fill = '#FF0000'; 
-
-                            const stateInfo = document.getElementById('stateInfo');
-                            stateInfo.style.display = 'block';
-                            const processedId = region.id.split('_').slice(3).join('_');                            stateInfo.innerHTML = `
-                                <h3>${processedId}</h3>
-                                <p>这里是关于 ${processedId} 的详细信息</p>
-                            `;
-                        });
-                        region.addEventListener('mouseout', () => {
-                            region.style.fill = ''; 
-                        });
-                        region.addEventListener('click', () => {
-                            const targetUrl = `https://danielchen3.github.io/usa_map/${region.id}`;
-                            window.location.href = targetUrl;
-                        });
-                    }
-                });
-            });
-
-        });
-    </script>
+    <script type="module" src="usa_ca.js"> </script>
 </body>
 </html>

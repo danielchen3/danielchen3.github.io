@@ -4,84 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arizona</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        h1 {
-            color: #4CAF50;
-        }
-        p {
-            font-size: 18px;
-            color: #555;
-        }
-        #svgContainer {
-            margin: 20px auto;
-            display: inline-block;
-            width: 100%;
-            max-width: auto;
-        }
-        .map-container {
-            display: flex;
-            gap: 20px;
-        }
-        #usaMap {
-            width: 60%;
-            height: 80vh;
-            min-height: 500px;
-            border: 1px solid #ddd;
-        }
+    <link rel="stylesheet" href="./../styles.css">
 
-        #stateInfo {
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #fff;
-            display: none;
-            width: 200px;
-            height: fit-content;
-        }
-    </style>
 </head>
+
 <body>
     <h1>Welcome to Arizona</h1>
     <p>This is the Arizona map:</p>
+
+    <div class="button-container">
+        <a href="https://danielchen3.github.io/usa_map" target="_blank">
+            <button >Go Back Map</button>
+        </a>
+    </div>
 
     <div class="map-container">
         <object id="usaMap" data="usa_az.svg" type="image/svg+xml" style="width: 60%; max-width: auto; height: auto; border: 1px solid #ddd;"></object>
         <div id="stateInfo"></div>
     </div>
     
-    <script>
-        const svgObject = document.getElementById('usaMap');
-        svgObject.addEventListener('load', () => {
-            const svgDoc = svgObject.contentDocument; 
-            const states = svgDoc.querySelectorAll('path'); 
-            
-            states.forEach(state => {
-                state.addEventListener('mouseover', () => {
-                    state.style.fill = '#FF0000';
-
-
-                    const stateInfo = document.getElementById('stateInfo');
-                    stateInfo.style.display = 'block';
-                    stateInfo.innerHTML = `
-                        <h3>${state.id}</h3>
-                        <p>这里是关于 ${state.id} 的详细信息</p>
-                    `;
-                });
-                state.addEventListener('mouseout', () => {
-                    state.style.fill = ''; 
-                });
-                state.addEventListener('click', () => {
-                    const targetUrl = `https://danielchen3.github.io/usa_map/${state.id}`;
-                    window.location.href = targetUrl; 
-                });
-                //}
-            });
-        });
-    </script>
+    <script type="module" src="usa_az.js"> </script>
 </body>
 </html>
