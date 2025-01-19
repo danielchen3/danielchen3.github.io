@@ -1,4 +1,4 @@
-import {data_list, state_code, state_name} from "../assets.js"
+import {data_list, state_code, state_name} from "../resources.js"
 
 // async function processData() {
 //     const querySnapshot = await data_list;
