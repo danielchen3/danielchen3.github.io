@@ -1,4 +1,5 @@
 import {data_list, state_code, state_name} from "../resources.js"
+import {Create_County_Chart} from "../util.js"
 
 // async function processData() {
 //     const querySnapshot = await data_list;
@@ -36,6 +37,37 @@ async function get_corresponding_regions(){
 }
 get_corresponding_regions();
 
+const test_data_pattern1 = {
+    "2025.1.10": 1,
+    "2025.1.11": 0,
+    "2025.1.12": 1,
+    "2025.1.13": 1,
+    "2025.1.14": 0,
+    "2025.1.15": 0,
+    "2025.1.16": 0,
+    "2025.1.17": 0,
+    "2025.1.18": 1,
+    "2025.1.19": 1,
+};
+
+const test_data_pattern2 = {
+    "2025.1.10": 0,
+    "2025.1.11": 0,
+    "2025.1.12": 1,
+    "2025.1.13": 0,
+    "2025.1.14": 1,
+    "2025.1.15": 1,
+    "2025.1.16": 1,
+    "2025.1.17": 0,
+    "2025.1.18": 0,
+    "2025.1.19": 0,
+};
+
+function getRandomPattern(pattern1, pattern2) {
+    return Math.random() < 0.5 ? pattern1 : pattern2;
+}
+
+
 const targetRegions = ["Bronx", "Suffolk", "Westchester","New York"];
 const svgObject = document.getElementById('usaMap');
 svgObject.addEventListener('load', () => {
@@ -61,11 +93,18 @@ svgObject.addEventListener('load', () => {
                             return `
                                 <p>Climate Zone: ${value.BA_zone}</p>
                                 <p>State: ${value.state_name}</p>
+                                <div style="width: 100%; height: 200px;">
+                                    <canvas id="tempChart"></canvas>
+                                </div>
                             `;
                         }
                         return 'Data not match';
                     })()}
                 `;
+                // 如果找到匹配数据，创建图表
+                if (Array.from(countyData.entries()).find(([key]) => key.endsWith(processedId))) {
+                    Create_County_Chart('tempChart', getRandomPattern(test_data_pattern1, test_data_pattern2), 'County Alert Trend');
+                }
             });
             region.addEventListener('mouseout', () => {
                 region.style.fill = ''; 
@@ -95,11 +134,17 @@ svgObject.addEventListener('load', () => {
                             return `
                                 <p>Climate Zone: ${value.BA_zone}</p>
                                 <p>State: ${value.state_name}</p>
+                                <div style="width: 100%; height: 200px;">
+                                    <canvas id="tempChart"></canvas>
+                                </div>
                             `;
                         }
                         return 'Data not match';
                     })()}
                 `;
+                if (Array.from(countyData.entries()).find(([key]) => key.endsWith(processedId))) {
+                    Create_County_Chart('tempChart', test_data, 'County Alert Trend');
+                }
             });
             path.addEventListener('mouseout', () => {
                 path.style.fill = ''; 
