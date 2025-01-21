@@ -77,9 +77,8 @@ svgObject.addEventListener('load', () => {
     
     regions.forEach(region => {
         if (region.id && !region.id.includes("path")) {
-            region.addEventListener('mouseover', () => {
+            region.addEventListener('mouseover', (e) => {
                 region.style.fill = '#FF0000'; 
-
             
                 const stateInfo = document.getElementById('stateInfo');
                 stateInfo.style.display = 'block';
@@ -105,9 +104,30 @@ svgObject.addEventListener('load', () => {
                 if (Array.from(countyData.entries()).find(([key]) => key.endsWith(processedId))) {
                     Create_County_Chart('tempChart', getRandomPattern(test_data_pattern1, test_data_pattern2), 'County Alert Trend');
                 }
+                // const tooltip = document.getElementById('tooltip');
+                // console.log("get tooltip", tooltip);
+                // tooltip.style.display = 'block';
+                // tooltip.style.left = e.pageX + 10 + 'px';
+                // tooltip.style.top = e.pageY + 10 + 'px';
+                // tooltip.innerHTML = `
+                //     <h3>${processedId}</h3>
+                //     ${(() => {
+                //         const match = Array.from(countyData.entries()).find(([key]) => key.endsWith(processedId));
+                //         if (match) {
+                //             const [_, value] = match;
+                //             return `
+                //                 <p>Climate Zone: ${value.BA_zone}</p>
+                //                 <p>State: ${value.state_name}</p>
+                //             `;
+                //         }
+                //         return 'Data not match';
+                //     })()}
+                // `;
+                
             });
             region.addEventListener('mouseout', () => {
                 region.style.fill = ''; 
+                // document.getElementById('tooltip').style.display = 'none';
             });
             region.addEventListener('click', () => {
                 const targetUrl = `https://danielchen3.github.io/usa_map/${region.id}`;
@@ -143,7 +163,7 @@ svgObject.addEventListener('load', () => {
                     })()}
                 `;
                 if (Array.from(countyData.entries()).find(([key]) => key.endsWith(processedId))) {
-                    Create_County_Chart('tempChart', test_data, 'County Alert Trend');
+                    Create_County_Chart('tempChart', getRandomPattern(test_data_pattern1, test_data_pattern2), 'County Alert Trend');
                 }
             });
             path.addEventListener('mouseout', () => {

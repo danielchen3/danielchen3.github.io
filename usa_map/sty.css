@@ -25,6 +25,20 @@ p {
     gap: 20px;
 }
 
+.tooltip {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    pointer-events: none;
+    z-index: 1000;
+    display: none;
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
+}
+
 button {
     background-color: #4CAF50;
     color: white;
