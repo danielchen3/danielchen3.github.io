@@ -23,6 +23,7 @@ p {
 .map-container {
     display: flex;
     gap: 20px;
+    overflow: auto; /* 添加滚动条 */
 }
 
 .tooltip {
@@ -53,9 +54,11 @@ button {
 
 #usaMap {
     width: 60%;
-    height: 80vh;
     min-height: 400px;
     border: 1px solid #ddd;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    object-fit: contain; /* 保持 SVG 比例缩放 */
 }
 
 #stateInfo {
